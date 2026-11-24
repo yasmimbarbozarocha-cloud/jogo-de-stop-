@@ -1,48 +1,112 @@
-<!doctype html>
-<html lang="pt-BR" data-theme="light">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
-    <title>Modelo de Jogo — Jogos VR</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="app">
-      <header class="top">
-        <div>
-          <span class="kicker">Modelo</span>
-          <h1 id="title">Clique no Alvo</h1>
-          <p class="subtitle">Troque este jogo pelo seu. O contrato já está pronto.</p>
-        </div>
-        <button id="restart" class="btn" type="button">Reiniciar</button>
-      </header>
-
-      <main>
-        <div class="hud">
-          <span class="pill">Alvos: <strong id="score">0</strong>/<span id="total">10</span></span>
-          <span class="pill">Tempo: <strong id="timer">0,0s</strong></span>
-        </div>
-
-        <div id="board" class="board" aria-label="Área do jogo">
-          <p id="start-hint" class="start-hint">Clique no alvo para começar</p>
-        </div>
-      </main>
-
-      <footer class="bottom">
-        <p>Este é o arquivo <code>game.js</code>. Leia os comentários e adapte.</p>
-      </footer>
-    </div>
-
-    <div id="result" class="overlay" hidden>
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="result-title">
-        <div class="modal-icon" aria-hidden="true">🎯</div>
-        <h2 id="result-title">Muito bem!</h2>
-        <p id="result-text">Você concluiu o jogo.</p>
-        <button id="play-again" class="btn btn-primary full" type="button">Jogar de novo</button>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio do Stop — Português</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="caderno" role="main">
+    <!-- Cabeçalho da folha educativa -->
+    <header class="cabecalho">
+      <div class="titulo-area">
+        <h1>Desafio do Stop</h1>
+        <p class="subtitulo">Ortografia e Vocabulário • 9º Ano</p>
       </div>
-    </div>
+      <div class="controles-topo">
+        <button id="botao-tema" type="button" class="botao-icone" aria-label="Alternar tema claro ou escuro">
+          Tema
+        </button>
+      </div>
+    </header>
 
-    <script src="game.js"></script>
-  </body>
+    <!-- Barra de progresso e pontuação -->
+    <section id="painel-status" class="painel-status oculto" aria-live="polite">
+      <div class="info-box">
+        <span class="rotulo">Rodada</span>
+        <strong id="texto-rodada">1 / 6</strong>
+      </div>
+      <div class="info-box destaque-letra">
+        <span class="rotulo">Letra</span>
+        <strong id="letra-atual">A</strong>
+      </div>
+      <div class="info-box">
+        <span class="rotulo">Tempo</span>
+        <strong id="texto-tempo">35s</strong>
+      </div>
+      <div class="info-box">
+        <span class="rotulo">Pontos</span>
+        <strong id="texto-pontos">0</strong>
+      </div>
+    </section>
+
+    <!-- Tela Inicial -->
+    <section id="tela-inicio" class="tela">
+      <div class="cartao-instrucao">
+        <h2>Como jogar</h2>
+        <ul class="lista-regras">
+          <li>Você vai jogar <strong>6 rodadas</strong> com letras diferentes.</li>
+          <li>Em cada rodada, digite uma palavra para <strong>Nome, Fruta, Cor e Objeto</strong> começando com a letra sorteada.</li>
+          <li>Preencha tudo e aperte <strong>STOP!</strong> antes do tempo acabar.</li>
+          <li><strong>Atenção à ortografia:</strong> acertos somam pontos; palavras erradas ou em branco tiram <strong>1 ponto</strong>!</li>
+        </ul>
+      </div>
+      <button id="botao-comecar" type="button" class="botao-principal">Começar Jogo</button>
+    </section>
+
+    <!-- Tela da Rodada -->
+    <section id="tela-jogo" class="tela oculto">
+      <form id="formulario-stop" autocomplete="off" novalidate>
+        <div class="grade-campos">
+          <div class="campo-grupo">
+            <label for="campo-nome">Nome de pessoa</label>
+            <input type="text" id="campo-nome" name="nome" placeholder="Ex: Beatriz" required>
+          </div>
+          <div class="campo-grupo">
+            <label for="campo-fruta">Fruta</label>
+            <input type="text" id="campo-fruta" name="fruta" placeholder="Ex: Banana" required>
+          </div>
+          <div class="campo-grupo">
+            <label for="campo-cor">Cor</label>
+            <input type="text" id="campo-cor" name="cor" placeholder="Ex: Branco" required>
+          </div>
+          <div class="campo-grupo">
+            <label for="campo-objeto">Objeto</label>
+            <input type="text" id="campo-objeto" name="objeto" placeholder="Ex: Borracha" required>
+          </div>
+        </div>
+        <button id="botao-stop" type="submit" class="botao-stop">STOP!</button>
+      </form>
+    </section>
+
+    <!-- Tela de Correção da Rodada -->
+    <section id="tela-correcao" class="tela oculto" aria-live="polite">
+      <h2 id="titulo-correcao">Resultado da Rodada</h2>
+      <div id="lista-feedback" class="lista-feedback"></div>
+      <button id="botao-proxima" type="button" class="botao-principal">Próxima Letra</button>
+    </section>
+
+    <!-- Tela Final -->
+    <section id="tela-final" class="tela oculto" aria-live="polite">
+      <div class="cartao-final">
+        <h2>Fim do Desafio!</h2>
+        <p id="mensagem-final" class="mensagem-final"></p>
+        <div class="resumo-final">
+          <div class="dado-final">
+            <span>Pontuação Final</span>
+            <strong id="pontuacao-final">0</strong>
+          </div>
+          <div class="dado-final">
+            <span>Tempo Total</span>
+            <strong id="tempo-final">0s</strong>
+          </div>
+        </div>
+      </div>
+      <button id="botao-reiniciar" type="button" class="botao-principal">Jogar Novamente</button>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
 </html>

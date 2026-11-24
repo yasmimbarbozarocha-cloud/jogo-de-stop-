@@ -1,16 +1,16 @@
 {
-  "slug": "meu-jogo",
-  "title": "Nome do meu jogo",
-  "author": "Seu nome",
-  "authorClass": "Sua turma",
-  "discipline": "Matemática",
-  "grades": ["6º", "7º"],
-  "tags": ["palavra-chave", "outra-palavra"],
-  "description": "Uma frase curta que explica o que o jogo ensina.",
-  "instructions": "Como jogar, em uma ou duas frases.",
-  "duration": 5,
+  "slug": "desafio-do-stop",
+  "title": "Desafio do Stop",
+  "author": "Karol",
+  "authorClass": "9-C",
+  "discipline": "Português",
+  "grades": ["6º ano", "7º ano", "8º ano", "9º ano"],
+  "tags": ["ortografia", "vocabulário", "stop", "adedonha", "português"],
+  "description": "Jogo de Stop educativo para lembrar palavras de diferentes categorias e praticar a ortografia e a acentuação em Língua Portuguesa.",
+  "instructions": "Observe a letra sorteada em cada uma das 6 rodadas, preencha Nome, Fruta, Cor e Objeto com a ortografia correta e aperte STOP! antes que o tempo acabe. Acertos somam 2 pontos e erros ou campos vazios tiram 1 ponto.",
+  "duration": "3 min",
   "version": "1.0.0",
   "entry": "index.html",
   "cover": "cover.svg",
-  "createdAt": "2026-11-02"
+  "createdAt": "2026-11-24"
 }
